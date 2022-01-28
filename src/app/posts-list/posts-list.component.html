@@ -1,0 +1,146 @@
+<div class="container-fluid posts-container">
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="search-input">
+        <input (keyup)="search()" type="text" class="form-control" [(ngModel)]="searchFilter" placeholder="Search Post">
+        <span (click)="resetSearch()" class="clear-icon" *ngIf="searchFilter" matSuffix> <span class="material-icons">
+            clear
+          </span></span>
+      </div>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="add-btn" (click)="addPost(content)">Add Post</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 px-0">
+      <table class="table table-responsive">
+        <thead class="thead">
+          <tr>
+            <th>Id</th>
+            <th (click)="onSortClick($event)">Title <span class="material-icons p-0 m-0">
+              sort
+              </span></th>
+            <th>Body</th>
+            <th>Comments</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody class="tbody">
+          <tr
+            *ngFor="let item of filteredDatas | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize;let i=index">
+            <td>{{item.id}}</td>
+            <td>{{item.title}}</td>
+            <td>{{item.body}}</td>
+            <td><span class="material-icons eye-icon" (click)="showComments(item,content)">
+                visibility
+              </span></td>
+            <td class="d-flex"><span class="material-icons edit-icon" (click)="editPost(item,content)">
+                edit
+              </span>
+              <span class="material-icons delete-icon" (click)="deletePost(i)">
+                delete
+              </span>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+
+      <div class="d-flex justify-content-end">
+        <ngb-pagination [pageSize]="10" [collectionSize]="102" [(page)]="page" [boundaryLinks]="true"></ngb-pagination>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" *ngIf="showComment">Comments</h4>
+    <h4 class="modal-title" id="modal-basic-title" *ngIf="postEdit">Update Post</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div *ngIf="showComment">
+    <div class="modal-body comments-modal">
+      <div id="overlay" *ngIf="spinner">
+        <mat-spinner></mat-spinner>
+      </div>
+      <div class="row mb-4">
+        <div class="col-md-12 text-right">
+          <button class="add-btn" (click)="addComment()">Add Comment</button>
+        </div>
+      </div>
+      <div class="row" *ngIf="addComments">
+        <div class="col-md-12">
+          <form [formGroup]="commentsForm" (ngSubmit)="saveComments()">
+            <div class="modal-body edt-post-modal">
+              <label for="name">Name</label>
+              <input type="text" formControlName="name" id="name" placeholder="Enter name" class="form-control">
+
+              <label for="email">Email</label>
+              <input type="email" formControlName="email" id="email" placeholder="Enter email" class="form-control">
+
+              <label for="body">Body</label>
+              <textarea formControlName="body" id="body" placeholder="Enter Body" class="form-control" cols="30"
+                rows="10"></textarea>
+
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-outline-dark">Save</button>
+              <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">Cancel</button>
+
+            </div>
+          </form>
+        </div>
+      </div>
+      <div *ngFor="let comment of commentsList; let i =index">
+        <div class="comments-header">
+          <p class="heading">Comment &nbsp; {{comment.id}}</p>
+          <p> <span class="material-icons delete-icon" (click)="deleteComment(i)">
+              delete
+            </span></p>
+        </div>
+        <h5 class="lable">Name</h5>
+        <p class="content">{{comment.name}}</p>
+        <h5 class="lable">Email</h5>
+        <p class="content">{{comment.email}}</p>
+        <h5 class="lable">Body</h5>
+        <p class="content">{{comment.body}}</p>
+        <hr>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Close</button>
+    </div>
+  </div>
+
+  <div *ngIf="postEdit">
+    <form [formGroup]="postForm" (ngSubmit)="savePost()">
+      <div class="modal-body edt-post-modal">
+
+        <label for="title">Title</label>
+        <input type="text" formControlName="title" id="title" placeholder="Enter title" class="form-control"
+          [(ngModel)]="title">
+        <div *ngIf="submitted && f.title.errors" class="err-msg">
+          <div *ngIf="f.title.errors.required">Title is required</div>
+        </div>
+        <label for="body">Body</label>
+        <textarea formControlName="body" id="body" placeholder="Enter Body" class="form-control" [(ngModel)]="body"
+          cols="30" rows="10"></textarea>
+        <div *ngIf="submitted && f.body.errors" class="err-msg">
+          <div *ngIf="f.body.errors.required">Body is required</div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-dark">Save</button>
+        <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">Cancel</button>
+
+      </div>
+    </form>
+  </div>
+
+</ng-template>

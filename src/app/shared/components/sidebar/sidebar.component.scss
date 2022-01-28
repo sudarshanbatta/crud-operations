@@ -1,0 +1,61 @@
+@import '../../../../assets/abstracts/mixins';
+.sidebar-cotainer{
+  // height: 100%;
+  .sidebar-options{
+    ul{
+      display: block;
+      padding: 0;
+      li{
+        list-style-type: none;
+        padding: 1rem 0 1rem 0.5rem;
+        color: #164081;
+        border-radius: 0.4rem;
+        margin-bottom: 0.4rem;
+        font-size: 1rem;
+        &:hover,&:active{
+          background-color: #164081;
+          color: #fff;
+          cursor: pointer;
+        }
+      }
+      .active-link{
+        background-color: #164081;
+        color: #fff;
+
+      }
+
+    }
+  }
+  .side-nav-close{
+    display: none;
+  }
+  @include breakpoint(mobileonly) {
+    .sidebar-non-mobile{
+      display: none;
+    }
+    .side-nav-close{
+      display: block;
+      background-color: #fff;
+      color: #164081;
+      border: 1px solid #164081;
+      height: 2.5rem;
+      width: 2.5rem;
+      border-radius: 0.5rem;
+    }
+    .filters-sidenav {
+        height: 100%;
+        width: 250px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #ffffff;
+        overflow-x: hidden;
+        padding: 1rem;
+        box-shadow: -20px -11px 4px 20px rgba(0, 0, 0, 0.2), -20px 0px 7px 20px rgba(0, 0, 0, 0.19);
+        .refine-box {
+
+        }
+    }
+}
+}

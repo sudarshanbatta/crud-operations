@@ -1,0 +1,27 @@
+<div class="sidebar-cotainer">
+  <div class="sidebar-options sidebar-non-mobile">
+    <ul>
+      <li class="active-link">Posts</li>
+      <li >Comments</li>
+    </ul>
+  </div>
+  <div class="mobile-sidebar">
+    <button type="button" class="side-nav-close mb-2" (click)="showSidebar()">
+      <i class="fa fa-bars"></i>
+  </button>
+<!-- Mobile view sidebar code start -->
+  <div class="filters-sidenav" *ngIf="sidebar">
+    <p class="text-right" (click)="showSidebar()">X</p>
+    <div class="refine-box">
+      <div class="sidebar-options">
+        <ul>
+          <li >Posts</li>
+          <li >Comments</li>
+        </ul>
+      </div>
+    </div>
+</div>
+<!-- Mobile view sidebar code end -->
+
+  </div>
+  </div>

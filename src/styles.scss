@@ -1,0 +1,61 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+.material-icons {
+  font-size: 18px;
+  border-radius: 50%;
+  padding: 5px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+.edit-icon {
+  background-color: #fb882433;
+  color: #da6b0a;
+}
+.eye-icon {
+  background-color: #2d9b6e33;
+  color: #2d9b6e;
+}
+.delete-icon {
+  background-color: #e1000033;
+
+  color: #e10000;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.form-control {
+  &:focus {
+    box-shadow: none;
+  }
+}
+.err-msg {
+  font-size: 14px;
+  color: #e10000;
+}
+.btn{
+  &:focus,&:active{
+    box-shadow: none;
+  }
+}
